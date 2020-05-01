@@ -25,7 +25,7 @@ docker run -it --name lt lambdatest/tunnel -user johndoe -key XXXXXXXXXXXX
 
 ##### Capturing logs in mounted volume on host machine
 ```bash
-docker run -it  -v /mydir:/logs lambdatest/tunnel -user joendoe -key XXXXXXXX
+docker run -it  -v /mydir:/logs lambdatest/tunnel -user joendoe -key XXXXXXXX -logFile /logs/tunnel.log
 ```
 ##### Using info api on tunnel to fetch tunnel status
 > Info API will be available on the host over port 13001. `curl 127.0.0.1:13001/api/v1.0/info` can be used to probe the tunnel status
