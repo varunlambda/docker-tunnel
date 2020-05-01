@@ -30,10 +30,10 @@ docker run -it  -v /mydir:/logs lambdatest/tunnel -user joendoe -key XXXXXXXX
 ##### Using info api on tunnel to fetch tunnel status
 > Info API will be available on the host over port 13001. `curl 127.0.0.1:13001/api/v1.0/info` can be used to probe the tunnel status
 ```bash
-docker run -it -v /Users/mayankbhola/Downloads/experiment:/logs  -p 13001:8000 lambdatest/tunnel -user johndoe -key XXXXXXX  -infoAPIPort 8000  
+docker run -it -p 13001:8000 lambdatest/tunnel -user johndoe -key XXXXXXX  -infoAPIPort 8000  
 ```
 
-##### Using Proxy running on host machine at port 8082
+##### Using Proxy running on host machine at port 8082 having foo and bar as username and key
 ```bash
 docker run -it lambdatest/tunnel -user johndoe -key XXXXXXX  -proxy-host host.docker.internal  -proxy-port 8082 -proxy-user foo -proxy-pass bar
 ```
@@ -45,7 +45,7 @@ docker run -it lambdatest/tunnel -user johndoe -key XXXXXXX  -proxy-host 172.17.
 ```
 
 ##### Using Proxy running on another docker container within same `custom` bridge network
-> When you create custom network, container can reach each other using names due to automatic service discovery. Assuming that `custom-network` already exists and container named proxy-service has a proxy server running
+> When you create custom network, containers can reach each other using container names due to automatic service discovery. Assuming that `custom-network` already exists and container named proxy-service has a proxy server running
 ```bash
 docker run -it lambdatest/tunnel -user johndoe -key XXXXXXX  -proxy-host proxy-service  -proxy-port 8082 -proxy-user foo -proxy-pass bar
 ```
@@ -57,18 +57,18 @@ docker run -it lambdatest/tunnel -user johndoe -key XXXXXXX  -proxy-host proxy-s
 
 
 ## Considerations when testing web applications running on the host machine
-By default LambdaTest tunnel can no longer access webapps running on host machines or other docker containers using localhost or 127.0.0.1 when you run it using docker container. This means that the test code needs to be modified in the way it accesses the target webapp according to the docker network topology and host operating system.
+By default LambdaTest tunnel can no longer access webapps running on host machines or other docker containers using localhost or 127.0.0.1 when you run it using docker container. This means that the test scripts needs to be modified in the way they accesses the target webapp, according to the docker network topology and host operating system.
 
 #### Linux
-On linux, containers can run in a special netowrk mode called `host`. This network mode makes the container use host's network stack and doesn't create an isolated on for the containers.
+On linux, containers can run in a special network mode called `host`. This network mode makes the container use host's network stack and doesn't create an isolated one for the containers.
 Running the following command makes tunnel container run with host networking and can access host's network. The test scripts can access services running on host machine using localhost
 ```bash
 docker run -it  --network host lambdatest/tunnel -user johndoe -key XXXXXXXXXXXX
 ```
 
 #### Mac and Windows
-Unfortunately, on both mac and windows, host networking mode is not available due to the implementation of docker machine. The recommended approach to access services on host machine is to use a special dns name `host.docker.internal` which resolves to the host machine. You can find more details on these links: [mac](https://docs.docker.com/docker-for-mac/networking/), [windows](https://docs.docker.com/docker-for-windows/networking/)
-The test scripts need to use this special DNS in order to access the webservices running on the host machine.
+Unfortunately, on both mac and windows, host networking mode is not available due to the implementation of docker machine. The recommended approach to access services on host machine is to use a special host name `host.docker.internal` which resolves to the host machine. You can find more details on these links: [mac](https://docs.docker.com/docker-for-mac/networking/), [windows](https://docs.docker.com/docker-for-windows/networking/)
+The test scripts need to use this special hostname in order to access the webservices running on the host machine.
 
 > The idomatic way of testing on docker infra is to create a custom bridge network and access services using their container names. This method works on all operating systems
 
