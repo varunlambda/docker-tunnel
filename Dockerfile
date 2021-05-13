@@ -1,12 +1,10 @@
-FROM ubuntu
+FROM ubuntu:latest
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y wget unzip
-RUN wget https://downloads.lambdatest.com/tunnel/linux/64bit/ltcomponent.zip && \ 
-    unzip ltcomponent.zip && \
-    rm ltcomponent.zip && \
-    mv /ltcomponent /LT && \
+RUN wget https://downloads.lambdatest.com/tunnel/v3/linux/64bit/LT_Linux.zip && \ 
+    unzip LT_Linux.zip && \
+    rm LT_Linux.zip && \
     chmod +x /LT
  
 ENTRYPOINT [ "/LT" ]
-
