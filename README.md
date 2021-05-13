@@ -15,25 +15,25 @@ This image supports all the tunnel modifier [flags available](https://www.lambda
 #### Version
 
 ```bash
-docker run -it  lambdatest/tunnel --version
+docker run -it  lambdatest/tunnel:latest --version
 ```
 
 #### Help
 
 ```bash
-docker run -it  lambdatest/tunnel --help
+docker run -it  lambdatest/tunnel:latest --help
 ```
 
 #### Basic
 
 ```bash
-docker run -it --name lt lambdatest/tunnel --user johndoe --key XXXXXXXXXXXX
+docker run -it --name lt lambdatest/tunnel:latest --user johndoe --key XXXXXXXXXXXX
 ```
 
 #### Capturing logs in mounted volume on host machine
 
 ```bash
-docker run -it  -v /mydir:/logs lambdatest/tunnel --user joendoe --key XXXXXXXX --logFile /logs/tunnel.log
+docker run -it  -v /mydir:/logs lambdatest/tunnel:latest --user joendoe --key XXXXXXXX --logFile /logs/tunnel:latest.log
 ```
 
 #### Using info api on tunnel to fetch tunnel status and stop tunnel
@@ -41,13 +41,13 @@ docker run -it  -v /mydir:/logs lambdatest/tunnel --user joendoe --key XXXXXXXX 
 > Info API will be available on the host over port 13001. `curl -X GET http://127.0.0.1:13001/api/v1.0/info` can be used to probe the tunnel status and `curl -X DELETE http://127.0.0.1:13001/api/v1.0/stop` to stop tunnel.
 
 ```bash
-docker run -it -p 13001:8000 lambdatest/tunnel --user johndoe --key XXXXXXX  --infoAPIPort 8000
+docker run -it -p 13001:8000 lambdatest/tunnel:latest --user johndoe --key XXXXXXX  --infoAPIPort 8000
 ```
 
 #### Using Proxy running on host machine at port 8082 having foo and bar as username and key
 
 ```bash
-docker run -it lambdatest/tunnel --user johndoe --key XXXXXXX  --proxy-host host.docker.internal --proxy-port 8082 --proxy-user foo --proxy-pass bar
+docker run -it lambdatest/tunnel:latest --user johndoe --key XXXXXXX  --proxy-host host.docker.internal --proxy-port 8082 --proxy-user foo --proxy-pass bar
 ```
 
 #### Using Proxy running on another docker container within same default bridge network
@@ -55,7 +55,7 @@ docker run -it lambdatest/tunnel --user johndoe --key XXXXXXX  --proxy-host host
 > Assuming the container in which proxy is running has IP 172.17.0.2. The IP can be found from inside of the container or by inspecting the network to which container is attached
 
 ```bash
-docker run -it lambdatest/tunnel --user johndoe --key XXXXXXX  --proxy-host 172.17.0.2  --proxy-port 8082 --proxy-user foo --proxy-pass bar
+docker run -it lambdatest/tunnel:latest --user johndoe --key XXXXXXX  --proxy-host 172.17.0.2  --proxy-port 8082 --proxy-user foo --proxy-pass bar
 ```
 
 #### Using Proxy running on another docker container within same `custom` bridge network
@@ -63,7 +63,7 @@ docker run -it lambdatest/tunnel --user johndoe --key XXXXXXX  --proxy-host 172.
 > When you create custom network, containers can reach each other using container names due to automatic service discovery. Assuming that `custom-network` already exists and container named proxy-service has a proxy server running
 
 ```bash
-docker run -it lambdatest/tunnel --user johndoe --key XXXXXXX  --proxy-host proxy-service  --proxy-port 8082 --proxy-user foo --proxy-pass bar
+docker run -it lambdatest/tunnel:latest --user johndoe --key XXXXXXX  --proxy-host proxy-service  --proxy-port 8082 --proxy-user foo --proxy-pass bar
 ```
 
 ## Development
@@ -81,7 +81,7 @@ On linux, containers can run in a special network mode called `host`. This netwo
 Running the following command makes tunnel container run with host networking and can access host's network. The test scripts can access services running on host machine using localhost
 
 ```bash
-docker run -it  --network host lambdatest/tunnel --user johndoe --key XXXXXXXXXXXX
+docker run -it  --network host lambdatest/tunnel:latest --user johndoe --key XXXXXXXXXXXX
 ```
 
 #### Mac and Windows
