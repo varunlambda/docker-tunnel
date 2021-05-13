@@ -33,7 +33,7 @@ docker run -it --name lt lambdatest/tunnel:latest --user johndoe --key XXXXXXXXX
 #### Capturing logs in mounted volume on host machine
 
 ```bash
-docker run -it  -v /mydir:/logs lambdatest/tunnel:latest --user joendoe --key XXXXXXXX --logFile /logs/tunnel:latest.log
+docker run -it  -v /mydir:/logs lambdatest/tunnel:latest --user joendoe --key XXXXXXXX --logFile /logs/tunnel.log
 ```
 
 #### Using info api on tunnel to fetch tunnel status and stop tunnel
