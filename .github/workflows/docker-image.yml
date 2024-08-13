@@ -1,0 +1,26 @@
+name: Docker Tunnel Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-docker-tunnel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Pull and Run Docker Image - Check Version
+        run: |
+          docker run -it lambdatest/tunnel:latest --version
+
+      - name: Pull and Run Docker Image - Start Tunnel
+        run: |
+          docker run -it --name lt lambdatest/tunnel:latest --user varunkumarb --key GhGShOYHz1jODWE9qDvkJK4nPDR3n2lc0gNp9VknalhwtUineG
+
