@@ -13,9 +13,9 @@ jobs:
 
       - name: Pull and Run Docker Image - Check Version
         run: |
-          docker run -it lambdatest/tunnel:latest --version
+          docker run lambdatest/tunnel:latest --version
 
       - name: Pull and Run Docker Image - Start Tunnel
         run: |
-          docker run -it --name lt lambdatest/tunnel:latest --user varunkumarb --key GhGShOYHz1jODWE9qDvkJK4nPDR3n2lc0gNp9VknalhwtUineG
+          docker run --name lt lambdatest/tunnel:latest --user varunkumarb --key GhGShOYHz1jODWE9qDvkJK4nPDR3n2lc0gNp9VknalhwtUineG
 
